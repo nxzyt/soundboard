@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>nazoh</title>
+  <title>My Soundboard</title>
   <style>
     body {
       font-family: system-ui, -apple-system, sans-serif;
@@ -51,7 +51,7 @@
 </head>
 <body>
 
-  <h1>Sounds</h1>
+  <h1>Soundboard</h1>
 
   <!-- Audio Files (Hidden from view) -->
   <audio id="dry-fart" src="sounds/dry-fart.mp3" preload="auto"></audio>
@@ -60,9 +60,9 @@
 
   <!-- Soundboard Buttons -->
   <div class="grid">
-    <button onclick="playSound('dry-fart')">💩 Dry Fart</button>
-    <button onclick="playSound('fahhhhhhhhhhhhhh')">👏 FAHHH</button>
-    <button onclick="playSound('spongebob-fail')">🧽 Spongebob Fail</button>
+    <button onclick="playSound('dry-fart')">📯 Airhorn</button>
+    <button onclick="playSound('fahhhhhhhhhhhhhh')">👏 Applause</button>
+    <button onclick="playSound('spongebob-fail')">🥁 Drumroll</button>
   </div>
 
   <button class="stop-btn" onclick="stopAll()">⏹ Stop All</button>
@@ -83,35 +83,6 @@
         audio.currentTime = 0;
       });
     }
-  <script>
-    // Helper function to play and reset audio so you can spam the key
-    function playSound(soundId) {
-      const sound = document.getElementById(soundId);
-      if (sound) {
-        sound.currentTime = 0; // Rewinds to start
-        sound.play();
-      }
-    }
-
-    // Listen for keyboard presses anywhere on the page
-    document.addEventListener('keydown', function(event) {
-      // Ignore key presses if the user is typing in an input box
-      if (event.target.tagName === 'INPUT') return;
-
-      // Map keys (lowercase) to your <audio> element IDs
-      const keyMap = {
-        '1': 'dry-fart',
-        '2': 'fahhhhhhhhhhhhhh',
-        'q': 'spongebob-fail', // You can map letters too
-        ' ': 'bruh'     // Spacebar
-      };
-
-      const soundId = keyMap[event.key.toLowerCase()];
-      
-      if (soundId) {
-        playSound(soundId);
-      }
-    });
   </script>
 
 </body>
