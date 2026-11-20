@@ -1,165 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Soundboard</title>
-  <style>
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background-color: #121212;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-      width: 100%;
-      max-width: 600px;
-      margin-top: 1.5rem;
-    }
-    button {
-      background-color: #2563eb;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      padding: 1.5rem 1rem;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.1s, background-color 0.2s;
-    }
-    button:hover {
-      background-color: #1d4ed8;
-    }
-    button:active {
-      transform: scale(0.96);
-    }
-    .stop-btn {
-      background-color: #dc2626;
-      margin-top: 1.5rem;
-      padding: 0.75rem 2rem;
-    }
-    .stop-btn:hover {
-      background-color: #b91c1c;
-    }
-  </style>
 </head>
-<body>
-
-  <h1>nazoh</h1>
-
-  <!-- Audio Files (Hidden from view) -->
-  <audio id="dry-fart" src="sounds/dry-fart.mp3" preload="auto"></audio>
-  <audio id="fahhhhhhhhhhhhhh" src="sounds/fahhhhhhhhhhhhhh.mp3" preload="auto"></audio>
-  <audio id="spongebob-fail" src="sounds/spongebob-fail.mp3" preload="auto"></audio>
-
-  <!-- Soundboard Buttons -->
-  <div class="grid">
-    <button onclick="playSound('dry-fart')">📯 Dry Fart</button>
-    <button onclick="playSound('fahhhhhhhhhhhhhh')">👏 FAHHH</button>
-    <button onclick="playSound('spongebob-fail')">🥁 Spongebob Fail</button>
-    
-    
-      <script src="script.js"></script>
-    
-  </div>
-
-  <button class="stop-btn" onclick="stopAll()">⏹ Stop All</button>
-
-  <script>
-    function playSound(id) {
-      stopAll(); // Remove this line if you want sounds to overlap
-      const sound = document.getElementById(id);
+   <script>
+    // Helper function to play and reset audio so you can spam the key
+    function playSound(soundId) {
+      const sound = document.getElementById(soundId);
       if (sound) {
-        sound.currentTime = 0;
+        sound.currentTime = 0; // Rewinds to start
         sound.play();
       }
     }
-
-    function stopAll() {
-      document.querySelectorAll('audio').forEach(audio => {
-        audio.pause();
-        audio.currentTime = 0;
-      });
-    }
-<head>
-  <meta charset="UTF-8">
-  <title>Keyboard Soundboard</title>
-  <style>
-    .sound-btn {
-      padding: 20px;
-      font-size: 18px;
-      margin: 10px;
-      cursor: pointer;
-      transition: transform 0.05s, background-color 0.05s;
-    }
-    /* Visual feedback when key is pressed */
-    .playing {
-      transform: scale(1.1);
-      background-color: #ffcc00;
-    }
-  </style>
-
-    </head>
 <body>
 
-  <!-- 1. Add data-key matching the exact keyboard letter/key -->
-  <div class="soundboard">
-    <button class="sound-btn" data-key="a" data-sound="sounds/dry-fart.mp3">
-      Dry Fart (A)
-    </button>
-    <button class="sound-btn" data-key="s" data-sound="sounds/fahhhhhhhhhhhhhh.mp3">
-      FAHHH (S)
-    </button>
-    <button class="sound-btn" data-key="d" data-sound="spongebob-fail.mp3">
-      SpongeBob Fail (D)
-    </button>
-  </div>
+  <!-- 1. YOUR BUTTONS AND AUDIO TAGS GO HERE -->
+  <button id="btn-Dry Fart" onclick="playSound('Dry Fart')">Dry Fart [1]</button>
+  <button id="btn-FAHHH" onclick="playSound('fahhhhhhhhhhhhhh')">FAHHH [2]</button>
 
-  <script>
-    // Helper function to play sound and animate button
-    function triggerSound(button) {
-      if (!button) return;
+  <audio id="dry-fart" src="dry-fart.mp3"></audio>
+  <audio id="fahhhhhhhhhhhhhh" src="fahhhhhhhhhhhhhh.mp3"></audio>
 
-      const soundFile = button.getAttribute('data-sound');
-      const audio = new Audio(soundFile);
+
+    // Listen for keyboard presses anywhere on the page
+    document.addEventListener('keydown', function(event) {
+      // Ignore key presses if the user is typing in an input box
+      if (event.target.tagName === 'INPUT') return;
+
+      // Map keys (lowercase) to your <audio> element IDs
+      const keyMap = {
+        '1': 'Dry Fart',
+        '2': 'fahhhhhhhhhhhhhh',
+        'q': 'airhorn', // You can map letters too
+        ' ': 'bruh'     // Spacebar
+      };
+
+      const soundId = keyMap[event.key.toLowerCase()];
       
-      // Reset and play immediately (allows rapid re-triggering)
-      audio.currentTime = 0;
-      audio.play();
-
-      // Add visual active state
-      button.classList.add('playing');
-      setTimeout(() => button.classList.remove('playing'), 150);
-    }
-
-    // 2. Listen for keyboard presses
-    window.addEventListener('keydown', (event) => {
-      // Ignore if user is typing in an input field
-      if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
-
-      // Convert key to lowercase so 'A' and 'a' both work
-      const pressedKey = event.key.toLowerCase();
-      
-      // Find the button with the matching data-key
-      const button = document.querySelector(`.sound-btn[data-key="${pressedKey}"]`);
-      
-      triggerSound(button);
-    });
-
-    // 3. Also allow standard mouse clicks
-    document.querySelectorAll('.sound-btn').forEach(button => {
-      button.addEventListener('click', () => triggerSound(button));
+      if (soundId) {
+        playSound(soundId);
+      }
     });
   </script>
 
 </body>
 </html>
-  </script>
-
- 
