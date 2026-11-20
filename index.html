@@ -3,15 +3,6 @@
 <head>
   <title>My Soundboard</title>
 </head>
-   <script>
-    // Helper function to play and reset audio so you can spam the key
-    function playSound(soundId) {
-      const sound = document.getElementById(soundId);
-      if (sound) {
-        sound.currentTime = 0; // Rewinds to start
-        sound.play();
-      }
-    }
 <body>
 
   <!-- 1. YOUR BUTTONS AND AUDIO TAGS GO HERE -->
@@ -21,6 +12,16 @@
   <audio id="dry-fart" src="dry-fart.mp3"></audio>
   <audio id="fahhhhhhhhhhhhhh" src="fahhhhhhhhhhhhhh.mp3"></audio>
 
+  <!-- 2. ADD THE SCRIPT RIGHT BEFORE </body> -->
+  <script>
+    // Helper function to play and reset audio so you can spam the key
+    function playSound(soundId) {
+      const sound = document.getElementById(soundId);
+      if (sound) {
+        sound.currentTime = 0; // Rewinds to start
+        sound.play();
+      }
+    }
 
     // Listen for keyboard presses anywhere on the page
     document.addEventListener('keydown', function(event) {
