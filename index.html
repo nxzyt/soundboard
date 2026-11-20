@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Soundboard</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      width: 100%;
+      max-width: 600px;
+      margin-top: 1.5rem;
+    }
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    button:hover {
+      background-color: #1d4ed8;
+    }
+    button:active {
+      transform: scale(0.96);
+    }
+    .stop-btn {
+      background-color: #dc2626;
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+    }
+    .stop-btn:hover {
+      background-color: #b91c1c;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Soundboard</h1>
+
+  <!-- Audio Files (Hidden from view) -->
+  <audio id="dry-fart" src="sounds/dry-fart.mp3" preload="auto"></audio>
+  <audio id="fahhhhhhhhhhhhhh" src="sounds/fahhhhhhhhhhhhhh.mp3" preload="auto"></audio>
+  <audio id="spongebob-fail" src="sounds/spongebob-fail.mp3" preload="auto"></audio>
+  <audio id="sbneedit" src="sounds/sbneedit.mp3" preload="auto"></audio>
+  <audio id="brick" src="sounds/brick.mp3" preload="auto"></audio>
+  <audio id="cap" src="sounds/cap.mp3" preload="auto"></audio>
+  <audio id="DBZTP" src="sounds/DBZTP.mp3" preload="auto"></audio>
+  <audio id="westbrook" src="sounds/westbrook.mp3" preload="auto"></audio>
+  <audio id="exclamation" src="sounds/exclamation.mp3" preload="auto"></audio>
+  <audio id="niceshot" src="sounds/niceshot.mp3" preload="auto"></audio>
+  <audio id="tada" src="sounds/tada.mp3" preload="auto"></audio>
+  <audio id="ding" src="sounds/ding.mp3" preload="auto"></audio>
+  <audio id="plakslap" src="sounds/plakslap.mp3" preload="auto"></audio>
+  <audio id="wdnc" src="sounds/wdnc.mp3" preload="auto"></audio>
+  <audio id="aaugh" src="sounds/aaugh.mp3" preload="auto"></audio>
+  <audio id="angel" src="sounds/angel.mp3" preload="auto"></audio>
+  <audio id="audience" src="sounds/audience.mp3" preload="auto"></audio>
+  <audio id="basstransition" src="sounds/basstransition.mp3" preload="auto"></audio>
+  <audio id="cartoonmix" src="sounds/cartoonmix.mp3" preload="auto"></audio>
+
+
+
+  <!-- Soundboard Buttons -->
+  <div class="grid">
+    <button onclick="playSound('dry-fart')">💩 Fart</button>
+    <button onclick="playSound('fahhhhhhhhhhhhhh')">👏 FAHHH</button>
+    <button onclick="playSound('spongebob-fail')">🧽 Spongebob Fail</button>
+    <button onclick="playSound('sbneedit')">🧽 Spongebob Need It</button>
+    <button onclick="playSound('brick')">🧱 brick</button>
+    <button onclick="playSound('cap')">🧢 cap</button>
+    <button onclick="playSound('DBZTP')">🐉 DBZTP</button>
+    <button onclick="playSound('westbrook')">🏀 Westbrook</button>
+    <button onclick="playSound('exclamation')">❗ Exclamation MGS</button>
+    <button onclick="playSound('niceshot')">🎯 niceshot</button>
+    <button onclick="playSound('tada')">🎉 tada</button>
+    <button onclick="playSound('ding')">🔔 ding</button>
+    <button onclick="playSound('plakslap')">👋 plakslap</button>
+    <button onclick="playSound('wdnc')">❌ wdnc</button>
+    <button onclick="playSound('aaugh')">🗣️ aaugh</button>
+    <button onclick="playSound('angel')">😇 angel</button>
+    <button onclick="playSound('audience')">😂 audience</button>
+    <button onclick="playSound('basstransition')">⇄ basstransition</button>
+    <button onclick="playSound('cartoonmix')">📺 cartoonmix</button>
+  </div>
+
+  <button class="stop-btn" onclick="stopAll()">⏹ Stop All</button>
+
+  <script>
+    function playSound(id) {
+      stopAll(); // Remove this line if you want sounds to overlap
+      const sound = document.getElementById(id);
+      if (sound) {
+        sound.currentTime = 0;
+        sound.play();
+      }
+    }
+
+    function stopAll() {
+      document.querySelectorAll('audio').forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+    }
+  </script>
+
+</body>
+</html>
