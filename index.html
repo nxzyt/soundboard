@@ -1,47 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Soundboard</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      width: 100%;
+      max-width: 600px;
+      margin-top: 1.5rem;
+    }
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    button:hover {
+      background-color: #1d4ed8;
+    }
+    button:active {
+      transform: scale(0.96);
+    }
+    .stop-btn {
+      background-color: #dc2626;
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+    }
+    .stop-btn:hover {
+      background-color: #b91c1c;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- 1. YOUR BUTTONS AND AUDIO TAGS GO HERE -->
-  <button id="btn-Dry Fart" onclick="playSound('Dry Fart')">Dry Fart [1]</button>
-  <button id="btn-FAHHH" onclick="playSound('fahhhhhhhhhhhhhh')">FAHHH [2]</button>
+  <h1>Soundboard</h1>
 
-  <audio id="dry-fart" src="dry-fart.mp3"></audio>
-  <audio id="fahhhhhhhhhhhhhh" src="fahhhhhhhhhhhhhh.mp3"></audio>
+  <!-- Audio Files (Hidden from view) -->
+  <audio id="dry-fart" src="sounds/dry-fart.mp3" preload="auto"></audio>
+  <audio id="fahhhhhhhhhhhhhh" src="sounds/fahhhhhhhhhhhhhh.mp3" preload="auto"></audio>
+  <audio id="spongebob-fail" src="sounds/spongebob-fail.mp3" preload="auto"></audio>
 
-  <!-- 2. ADD THE SCRIPT RIGHT BEFORE </body> -->
+  <!-- Soundboard Buttons -->
+  <div class="grid">
+    <button onclick="playSound('dry-fart')">📯 Airhorn</button>
+    <button onclick="playSound('fahhhhhhhhhhhhhh')">👏 Applause</button>
+    <button onclick="playSound('spongebob-fail')">🥁 Drumroll</button>
+  </div>
+
+  <button class="stop-btn" onclick="stopAll()">⏹ Stop All</button>
+
   <script>
-    // Helper function to play and reset audio so you can spam the key
-    function playSound(soundId) {
-      const sound = document.getElementById(soundId);
+    function playSound(id) {
+      stopAll(); // Remove this line if you want sounds to overlap
+      const sound = document.getElementById(id);
       if (sound) {
-        sound.currentTime = 0; // Rewinds to start
+        sound.currentTime = 0;
         sound.play();
       }
     }
 
-    // Listen for keyboard presses anywhere on the page
-    document.addEventListener('keydown', function(event) {
-      // Ignore key presses if the user is typing in an input box
-      if (event.target.tagName === 'INPUT') return;
-
-      // Map keys (lowercase) to your <audio> element IDs
-      const keyMap = {
-        '1': 'Dry Fart',
-        '2': 'fahhhhhhhhhhhhhh',
-        'q': 'airhorn', // You can map letters too
-        ' ': 'bruh'     // Spacebar
-      };
-
-      const soundId = keyMap[event.key.toLowerCase()];
-      
-      if (soundId) {
-        playSound(soundId);
-      }
-    });
+    function stopAll() {
+      document.querySelectorAll('audio').forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+    }
   </script>
 
 </body>
