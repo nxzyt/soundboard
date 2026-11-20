@@ -83,6 +83,35 @@
         audio.currentTime = 0;
       });
     }
+  <script>
+    // Helper function to play and reset audio so you can spam the key
+    function playSound(soundId) {
+      const sound = document.getElementById(soundId);
+      if (sound) {
+        sound.currentTime = 0; // Rewinds to start
+        sound.play();
+      }
+    }
+
+    // Listen for keyboard presses anywhere on the page
+    document.addEventListener('keydown', function(event) {
+      // Ignore key presses if the user is typing in an input box
+      if (event.target.tagName === 'INPUT') return;
+
+      // Map keys (lowercase) to your <audio> element IDs
+      const keyMap = {
+        '1': 'dry-fart',
+        '2': 'fahhhhhhhhhhhhhh',
+        'q': 'spongebob-fail', // You can map letters too
+        ' ': 'bruh'     // Spacebar
+      };
+
+      const soundId = keyMap[event.key.toLowerCase()];
+      
+      if (soundId) {
+        playSound(soundId);
+      }
+    });
   </script>
 
 </body>
