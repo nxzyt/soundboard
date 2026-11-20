@@ -87,6 +87,81 @@
         audio.currentTime = 0;
       });
     }
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Keyboard Soundboard</title>
+  <style>
+    .sound-btn {
+      padding: 20px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      transition: transform 0.05s, background-color 0.05s;
+    }
+    /* Visual feedback when key is pressed */
+    .playing {
+      transform: scale(1.1);
+      background-color: #ffcc00;
+    }
+  </style>
+
+    </head>
+<body>
+
+  <!-- 1. Add data-key matching the exact keyboard letter/key -->
+  <div class="soundboard">
+    <button class="sound-btn" data-key="a" data-sound="sounds/dry-fart.mp3">
+      Dry Fart (A)
+    </button>
+    <button class="sound-btn" data-key="s" data-sound="sounds/fahhhhhhhhhhhhhh.mp3">
+      FAHHH (S)
+    </button>
+    <button class="sound-btn" data-key="d" data-sound="spongebob-fail.mp3">
+      SpongeBob Fail (D)
+    </button>
+  </div>
+
+  <script>
+    // Helper function to play sound and animate button
+    function triggerSound(button) {
+      if (!button) return;
+
+      const soundFile = button.getAttribute('data-sound');
+      const audio = new Audio(soundFile);
+      
+      // Reset and play immediately (allows rapid re-triggering)
+      audio.currentTime = 0;
+      audio.play();
+
+      // Add visual active state
+      button.classList.add('playing');
+      setTimeout(() => button.classList.remove('playing'), 150);
+    }
+
+    // 2. Listen for keyboard presses
+    window.addEventListener('keydown', (event) => {
+      // Ignore if user is typing in an input field
+      if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
+
+      // Convert key to lowercase so 'A' and 'a' both work
+      const pressedKey = event.key.toLowerCase();
+      
+      // Find the button with the matching data-key
+      const button = document.querySelector(`.sound-btn[data-key="${pressedKey}"]`);
+      
+      triggerSound(button);
+    });
+
+    // 3. Also allow standard mouse clicks
+    document.querySelectorAll('.sound-btn').forEach(button => {
+      button.addEventListener('click', () => triggerSound(button));
+    });
+  </script>
+
+</body>
+</html>
   </script>
 
  
